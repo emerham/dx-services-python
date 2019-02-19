@@ -1,0 +1,7 @@
+version: "3"
+services:
+networks:
+  proxy:
+    external: true
+  internal:
+    external: false
