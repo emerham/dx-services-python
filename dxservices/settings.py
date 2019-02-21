@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework_json_api',
+    'django_filters',
     'services',
 ]
 
@@ -76,14 +78,25 @@ WSGI_APPLICATION = 'dxservices.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'dxservices',
+        'USER': 'dxservices',
+        'PASSWORD': 'dxservices',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 REST_FRAMEWORK = {
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'DEFAULT_PAGINATION_CLASS':
+        'rest_framework.pagination.PageNumberPagination',
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
@@ -91,6 +104,36 @@ REST_FRAMEWORK = {
     ),
     'PAGE_SIZE': 10,
     'DATETIME_FORMAT': "%Y-%m-%dT%H:%M:%S.%fZ",
+    # 'PAGE_SIZE': 10,
+    # 'EXCEPTION_HANDLER': 'rest_framework_json_api.exceptions.exception_handler',
+    # 'DEFAULT_PAGINATION_CLASS':
+    #     'rest_framework_json_api.pagination.JsonApiPageNumberPagination',
+    # 'DEFAULT_PARSER_CLASSES': (
+    #     'rest_framework_json_api.parsers.JSONParser',
+    #     'rest_framework.parsers.FormParser',
+    #     'rest_framework.parsers.MultiPartParser'
+    # ),
+    # 'DEFAULT_RENDERER_CLASSES': (
+    #     'rest_framework_json_api.renderers.JSONRenderer',
+    #     # If you're performance testing, you will want to use the browseable API
+    #     # without forms, as the forms can generate their own queries.
+    #     # If performance testing, enable:
+    #     # 'example.utils.BrowsableAPIRendererWithoutForms',
+    #     # Otherwise, to play around with the browseable API, enable:
+    #     'rest_framework.renderers.BrowsableAPIRenderer'
+    # ),
+    # 'DEFAULT_METADATA_CLASS': 'rest_framework_json_api.metadata.JSONAPIMetadata',
+    # 'DEFAULT_FILTER_BACKENDS': (
+    #     'rest_framework_json_api.filters.QueryParameterValidationFilter',
+    #     'rest_framework_json_api.filters.OrderingFilter',
+    #     'rest_framework_json_api.django_filters.DjangoFilterBackend',
+    #     'rest_framework.filters.SearchFilter',
+    # ),
+    # 'SEARCH_PARAM': 'filter[search]',
+    # 'TEST_REQUEST_RENDERER_CLASSES': (
+    #     'rest_framework_json_api.renderers.JSONRenderer',
+    # ),
+    # 'TEST_REQUEST_DEFAULT_FORMAT': 'vnd.api+json'
 }
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(hours=5),
