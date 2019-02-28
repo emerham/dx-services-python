@@ -16,6 +16,7 @@ class BaseModel(models.Model):
 class Categories(BaseModel):
     name = models.CharField(max_length=256, unique=True)
     description = models.TextField(blank=True)
+    objects = models.Manager()
 
     def __str__(self):
         return self.name
@@ -23,6 +24,7 @@ class Categories(BaseModel):
 
 class Synonyms(models.Model):
     name = models.CharField(max_length=256, unique=True)
+    objects = models.Manager()
 
     def __str__(self):
         return self.name
@@ -37,6 +39,28 @@ class Services(BaseModel):
         'Synonyms', related_name='Synonyms', blank=True)
     field_service_url = models.URLField()
     field_service_icon = models.CharField(max_length=256, blank=True)
+    objects = models.Manager()
 
     def __str__(self):
         return self.title
+
+
+class EntityQueue(BaseModel):
+    title = models.CharField(max_length=256)
+    objects = models.Manager()
+
+    def __str__(self):
+        return self.title
+
+
+class EntityQueueItem(BaseModel):
+    weight = models.IntegerField()
+    queue = models.ForeignKey('EntityQueue', on_delete=models.CASCADE)
+    service = models.ForeignKey('Services', on_delete=models.CASCADE)
+    objects = models.Manager()
+
+    def __str__(self):
+        return self.service.title
+
+    class Meta:
+        ordering = ('weight',)
