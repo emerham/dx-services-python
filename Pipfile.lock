@@ -65,6 +65,7 @@
         },
         "inflection": {
             "hashes": [
+                "sha256:08e18e758d19aa0ae70984a88469b0d3bce8602db9f143274f3131f33426fccc",
                 "sha256:18ea7fb7a7d152853386523def08736aa8c32636b047ade55f7578c4edeb16ca"
             ],
             "version": "==0.3.1"

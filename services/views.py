@@ -1,11 +1,19 @@
 from rest_framework import viewsets, permissions
 
-from services.models import Services
-from services.models import Categories
-from services.models import Synonyms
-from services.serializers import ServiceSerializer
-from services.serializers import CategorySerializer
-from services.serializers import SynonymSerializer
+from services.models import (
+    Services,
+    Categories,
+    Synonyms,
+    EntityQueue,
+    EntityQueueItem,
+)
+from services.serializers import (
+    ServiceSerializer,
+    CategorySerializer,
+    SynonymSerializer,
+    EntityQueueSerializer,
+    EntityQueueItemSerializer,
+)
 
 
 class ServiceViewSet(viewsets.ModelViewSet):
@@ -27,6 +35,22 @@ class CategoryViewSet(viewsets.ModelViewSet):
 class SynonymViewSet(viewsets.ModelViewSet):
     queryset = Synonyms.objects.all().order_by('name')
     serializer_class = SynonymSerializer
+    permission_classes = (
+        permissions.IsAuthenticatedOrReadOnly,
+    )
+
+
+class EntityQueueItemViewSet(viewsets.ModelViewSet):
+    queryset = EntityQueueItem.objects.all()
+    serializer_class = EntityQueueItemSerializer
+    permission_classes = (
+        permissions.IsAuthenticatedOrReadOnly,
+    )
+
+
+class EntityQueueViewSet(viewsets.ModelViewSet):
+    queryset = EntityQueue.objects.all()
+    serializer_class = EntityQueueSerializer
     permission_classes = (
         permissions.IsAuthenticatedOrReadOnly,
     )

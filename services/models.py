@@ -52,9 +52,12 @@ class EntityQueue(BaseModel):
     def __str__(self):
         return self.title
 
+    class Meta:
+        ordering = ('title',)
+
 
 class EntityQueueItem(BaseModel):
-    weight = models.IntegerField()
+    weight = models.IntegerField(default=1)
     queue = models.ForeignKey('EntityQueue', on_delete=models.CASCADE)
     service = models.ForeignKey('Services', on_delete=models.CASCADE)
     objects = models.Manager()
@@ -63,4 +66,5 @@ class EntityQueueItem(BaseModel):
         return self.service.title
 
     class Meta:
-        ordering = ('weight',)
+        ordering = ('-weight', 'service__title',)
+        unique_together = ('service', 'queue')
