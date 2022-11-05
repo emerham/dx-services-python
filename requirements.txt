@@ -1,7 +1,7 @@
 Django==3.2.16
 django-rest-auth==0.9.3
 djangorestframework==3.11.2
-djangorestframework-simplejwt==3.3
+djangorestframework-simplejwt==5.2.2
 PyJWT==2.4.0
 pytz==2018.9
 PyYAML==3.13
